@@ -1,5 +1,7 @@
 package com.view;
 
+import java.awt.Graphics;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -9,7 +11,7 @@ import javax.swing.JPanel;
 public class View {
 
 	JFrame jf;
-	JPanel jp1, jp2;
+	StartPanel sp = null;
 	JMenuBar jmb,jmb2;
 	JMenu jm1,jm2;
 	JMenuItem jmt1, jmt2, jmt3,jmt4,jmt5,jmt6;
@@ -37,12 +39,15 @@ public class View {
 		jmt6 = new JMenuItem("Doc");
 		jm2.add(jmt6);
 		jmb.add(jm2);
-		//create panel
-		jp1 = new JPanel();
-		
+		//create start panel
+		sp = new StartPanel();
+		//create thread to call the run function
+		//in start class
+		Thread t = new Thread(sp);
+		t.start();
 		//set up the jframe
 		jf.setJMenuBar(jmb);
-		jf.add(jp1);
+		jf.add(sp);
 		jf.setSize(600, 600);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.setVisible(true);
@@ -55,3 +60,4 @@ public class View {
 	}
 
 }
+
