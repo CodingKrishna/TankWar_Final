@@ -1,12 +1,10 @@
 package com.view;
 
-import java.awt.Graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 
 public class View {
 
@@ -45,7 +43,7 @@ public class View {
 		//in start class
 		Thread t = new Thread(sp);
 		t.start();
-		//set up the jframe
+		//set up the Java frame
 		jf.setJMenuBar(jmb);
 		jf.add(sp);
 		jf.setSize(600, 600);

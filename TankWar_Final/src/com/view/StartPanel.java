@@ -7,7 +7,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-class StartPanel extends JPanel implements Runnable{
+public class StartPanel extends JPanel implements Runnable{
 	int time = 0;
 	public void paint(Graphics g){
 		super.paint(g);
