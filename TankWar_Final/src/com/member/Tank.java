@@ -4,10 +4,16 @@ package com.member;
 class Tank {
 	int x = 0;
 	int y = 0;
-	int direction = 0;
 	int speed = 0;
-	int color;
-	boolean islive = true;
+	String direction;
+	String color;
+	private boolean isLive = true;
+	//constructor for tank
+	public Tank(int x, int y){
+		this.x = x;
+		this.y = y;
+	}
+	
 	public int getX() {
 		return x;
 	}
@@ -20,10 +26,10 @@ class Tank {
 	public void setY(int y) {
 		this.y = y;
 	}
-	public int getDirection() {
+	public String getDirection() {
 		return direction;
 	}
-	public void setDirection(int direction) {
+	public void setDirection(String direction) {
 		this.direction = direction;
 	}
 	public int getSpeed() {
@@ -32,11 +38,19 @@ class Tank {
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
-	public int getColor() {
+	public String getColor() {
 		return color;
 	}
-	public void setColor(int color) {
+	public void setColor(String color) {
 		this.color = color;
+	}
+
+	public boolean isLive() {
+		return isLive;
+	}
+
+	public void setLive(boolean isLive) {
+		this.isLive = isLive;
 	}
 	
 }

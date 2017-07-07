@@ -1,12 +1,15 @@
 package com.view;
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-public class View {
+public class View implements ActionListener{
 
 	JFrame jf;
 	StartPanel sp = null;
@@ -21,15 +24,30 @@ public class View {
 		jm1 = new JMenu("File(F)");
 		jm1.setMnemonic('f');
 		jmt1 = new JMenuItem("New");
+		jmt1.addActionListener(this);
+		jmt1.setActionCommand("New");
 		jmt2 = new JMenuItem("Continue");
+		jmt2.addActionListener(this);
+		jmt2.setActionCommand("Continue");
 		jmt3 = new JMenuItem("Save");
+		jmt3.addActionListener(this);
+		jmt3.setActionCommand("Save");
 		jmt4 = new JMenuItem("Save As");
+		jmt4.addActionListener(this);
+		jmt4.setActionCommand("Save As");
 		jmt5 = new JMenuItem("Exit");
+		jmt5.addActionListener(this);
+		jmt5.setActionCommand("Exit");
 		jm1.add(jmt1);
+		jm1.addSeparator();
 		jm1.add(jmt2);
+		jm1.addSeparator();
 		jm1.add(jmt3);
+		jm1.addSeparator();
 		jm1.add(jmt4);
+		jm1.addSeparator();
 		jm1.add(jmt5);
+		jm1.addSeparator();
 		jmb.add(jm1);
 		//create the second menu to menu bar
 		jm2 = new JMenu("Help(H)");
@@ -55,6 +73,21 @@ public class View {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new View();
+	}
+	@Override
+	public void actionPerformed(ActionEvent a) {
+		// TODO Auto-generated method stub
+		if(a.getActionCommand().equals("New")){
+			
+		}else if(a.getActionCommand().equals("Continue")){
+			
+		}else if(a.getActionCommand().equals("Save")){
+			
+		}else if(a.getActionCommand().equals("Save As")){
+			
+		}else if(a.getActionCommand().equals("Exit")){
+			
+		}
 	}
 
 }
