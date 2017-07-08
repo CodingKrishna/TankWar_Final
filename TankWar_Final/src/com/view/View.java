@@ -16,6 +16,8 @@ public class View implements ActionListener{
 	JMenuBar jmb,jmb2;
 	JMenu jm1,jm2;
 	JMenuItem jmt1, jmt2, jmt3,jmt4,jmt5,jmt6;
+	GamePanel gamePanel = null;
+	StartPanel startPanel = null;
 	
 	public View(){
 		jf = new JFrame("Tank War");
@@ -56,14 +58,14 @@ public class View implements ActionListener{
 		jm2.add(jmt6);
 		jmb.add(jm2);
 		//create start panel
-		sp = new StartPanel();
+		startPanel = new StartPanel();
 		//create thread to call the run function
 		//in start class
-		Thread t = new Thread(sp);
+		Thread t = new Thread(startPanel);
 		t.start();
 		//set up the Java frame
 		jf.setJMenuBar(jmb);
-		jf.add(sp);
+		jf.add(startPanel);
 		jf.setSize(600, 600);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.setVisible(true);
@@ -77,8 +79,13 @@ public class View implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent a) {
 		// TODO Auto-generated method stub
+		
+		//if click the new game
 		if(a.getActionCommand().equals("New")){
-			
+			gamePanel = new GamePanel("New");
+			jf.remove(startPanel);
+			jf.add(gamePanel);
+			jf.setVisible(true);
 		}else if(a.getActionCommand().equals("Continue")){
 			
 		}else if(a.getActionCommand().equals("Save")){
