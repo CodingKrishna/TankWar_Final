@@ -23,6 +23,7 @@ public class GamePanel extends JPanel{
 				Enemy enemy = new Enemy((i+1)*50,0);
 				enemy.setColor("Yellow");
 				enemy.setDirection("South");
+//				enemy.setEnemies();
 			}
 		}
 	}
