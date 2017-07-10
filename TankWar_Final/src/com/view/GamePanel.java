@@ -3,11 +3,13 @@ import com.member.*;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Vector;
 
 import javax.swing.JPanel;
 
-public class GamePanel extends JPanel{
+public class GamePanel extends JPanel implements KeyListener, Runnable{
 	Player player = null;
 	Vector<Enemy> enemies= new Vector<Enemy>();
 	
@@ -26,15 +28,14 @@ public class GamePanel extends JPanel{
 			}
 		}
 	}
+	
+	//function of paint need JPanel.
 	public void paint(Graphics g){
 		super.paint(g);
 		g.setColor(Color.black);
 		g.fillRect(0, 0, 600, 400);
 		//draw player tank
 		if(player.isLive()==true){
-			System.out.println(player.getX());
-			System.out.println(player.getY());
-			System.out.println(player.getDirection());
 			this.drawTank(g, player.getX(), player.getY(), player.getDirection(), "Player");
 			
 		}
@@ -49,6 +50,7 @@ public class GamePanel extends JPanel{
 		}
 	}
 	
+	//function to render all tanks
 	public void drawTank(Graphics g, int x, int y, String direction, String type){
 		//determine if the type is player or enemy
 		switch(type){
@@ -116,5 +118,58 @@ public class GamePanel extends JPanel{
 		}
 		
 		
+	}
+
+	//this will control the move of player tank
+	@Override
+	public void keyPressed(KeyEvent k) {
+		// TODO Auto-generated method stub
+		if(k.getKeyCode()==KeyEvent.VK_W){
+			player.setDirection("North");
+			player.moveUp();
+			
+		}
+		if(k.getKeyCode()==KeyEvent.VK_A){
+			player.setDirection("West");
+			player.moveLeft();
+		}
+		if(k.getKeyCode()==KeyEvent.VK_S){
+			player.setDirection("South");
+			player.moveDown();
+		}
+		if(k.getKeyCode()==KeyEvent.VK_D){
+			player.setDirection("East");
+			player.moveRight();
+		}
+		//after pressed the key, Panel will refresh to show the new move of player
+		this.repaint();
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	//implements the thread
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while(true){
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			this.repaint();
+		}
 	}
 }

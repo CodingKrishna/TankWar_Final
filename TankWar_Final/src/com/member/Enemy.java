@@ -9,7 +9,7 @@ public class Enemy extends Tank{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void setEnemies(Vector<Enemy> enemies){
-		this.enemies = enemies;
-	}
+//	public void setEnemies(Vector<Enemy> enemies){
+//		this.enemies = enemies;
+//	}
 }

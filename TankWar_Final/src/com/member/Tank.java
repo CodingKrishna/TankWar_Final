@@ -2,9 +2,9 @@ package com.member;
 
 
 class Tank {
-	int x = 0;
-	int y = 0;
-	int speed = 0;
+	int x;
+	int y;
+	int speed = 2;
 	String direction = "North";
 	String color;
 	private boolean isLive = true;

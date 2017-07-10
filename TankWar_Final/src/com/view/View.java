@@ -85,6 +85,7 @@ public class View implements ActionListener{
 			gamePanel = new GamePanel("New");
 			jf.remove(startPanel);
 			jf.add(gamePanel);
+			jf.addKeyListener(gamePanel);
 			jf.setVisible(true);
 		}else if(a.getActionCommand().equals("Continue")){
 			
