@@ -26,21 +26,46 @@ public class Enemy extends Tank implements Runnable{
 			case "North":
 				for(int i = 0; i<30;i++){
 					y-=speed;
+					//set the time interval between each move
+					try {
+						Thread.sleep(50);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				break;
 			case "West":
 				for(int i = 0; i<30;i++){
 					x-=speed;
+					try {
+						Thread.sleep(50);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				break;
 			case "South":
 				for(int i = 0; i<30;i++){
 					y+=speed;
+					try {
+						Thread.sleep(50);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				break;
 			case "East":
 				for(int i = 0; i<30;i++){
 					x+=speed;
+					try {
+						Thread.sleep(50);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				break;
 			}

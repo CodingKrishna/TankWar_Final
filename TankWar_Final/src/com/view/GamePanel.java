@@ -171,8 +171,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//call repaint every 100 ms to refresh the gamepanel
-			System.out.println("yes");
+			//call repaint every 100 ms to refresh the game panel
 			this.repaint();
 		}
 	}
