@@ -5,7 +5,7 @@ class Tank {
 	int x = 0;
 	int y = 0;
 	int speed = 0;
-	String direction;
+	String direction = "North";
 	String color;
 	private boolean isLive = true;
 	//constructor for tank

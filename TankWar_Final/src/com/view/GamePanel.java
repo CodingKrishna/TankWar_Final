@@ -11,7 +11,7 @@ public class GamePanel extends JPanel{
 	Player player = null;
 	Vector<Enemy> enemies= new Vector<Enemy>();
 	
-	int enemyAmount = 5;
+	int enemiesAmount = 5;
 	
 	
 	//set the flag to determine the functionalities
@@ -19,11 +19,10 @@ public class GamePanel extends JPanel{
 		player = new Player(300,200);
 		//if flag is new then create enemies
 		if(flag.equals("New")){
-			for(int i = 0; i<enemyAmount; i++){
-				Enemy enemy = new Enemy((i+1)*50,0);
-				enemy.setColor("Yellow");
+			for(int i = 0; i<enemiesAmount; i++){
+				Enemy enemy = new Enemy((i+1)*100,0);
 				enemy.setDirection("South");
-//				enemy.setEnemies();
+				enemies.add(enemy);
 			}
 		}
 	}
@@ -33,7 +32,11 @@ public class GamePanel extends JPanel{
 		g.fillRect(0, 0, 600, 400);
 		//draw player tank
 		if(player.isLive()==true){
+			System.out.println(player.getX());
+			System.out.println(player.getY());
+			System.out.println(player.getDirection());
 			this.drawTank(g, player.getX(), player.getY(), player.getDirection(), "Player");
+			
 		}
 		
 		//draw the enemy tank
@@ -41,6 +44,7 @@ public class GamePanel extends JPanel{
 			Enemy enemy = enemies.get(i);
 			if(enemy.isLive()){
 				this.drawTank(g, enemy.getX(), enemy.getY(), enemy.getDirection(), "Enemy");
+				
 			}
 		}
 	}
