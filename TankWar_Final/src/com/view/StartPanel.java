@@ -13,6 +13,7 @@ public class StartPanel extends JPanel implements Runnable{
 		super.paint(g);
 		g.setColor(Color.black);
 		g.fillRect(0, 0, 600, 400);
+		//set the time interval to display the welcome string
 		if(time%2==0){
 			g.setColor(Color.white);
 			Font myFont = new Font("Serif",Font.BOLD, 30);
