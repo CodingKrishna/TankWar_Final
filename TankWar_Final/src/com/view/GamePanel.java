@@ -21,13 +21,17 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 	//set the flag to determine the functionalities
 	public GamePanel(String flag){
 		player = new Player(300,200);
-		//if flag is new then create enemies
+		//if flag is new then create enemies and enemy bullets
 		if(flag.equals("New")){
 			for(int i = 0; i<enemiesAmount; i++){
 				Enemy enemy = new Enemy((i+1)*100,0);
 				enemy.setDirection("South");
 				Thread enemyThread = new Thread(enemy);
 				enemyThread.start();
+				Bullet enemyBullet = new Bullet(enemy.getX()+10,enemy.getY()+30,"South");
+				enemy.getEnemyBullets().add(enemyBullet);
+				Thread enemyBulletThread = new Thread(enemyBullet);
+				enemyBulletThread.start();
 				enemies.add(enemy);
 			}
 		}
@@ -45,12 +49,12 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		}
 		
 		//draw the player bullets
-		for(int i = 0; i<player.getPlayerBullets().size();i++){
-			Bullet playerBullet = player.getPlayerBullets().get(i);
+		for(int playerBulletIndex = 0; playerBulletIndex<player.getPlayerBullets().size();playerBulletIndex++){
+			Bullet playerBullet = player.getPlayerBullets().get(playerBulletIndex);
 //			//draw the bullet
 			if(playerBullet!=null && playerBullet.getIsLive()==true){
 				g.setColor(Color.WHITE);
-				g.draw3DRect(playerBullet.getBulletX(), playerBullet.getBulletY(), 1, 1, false);
+				g.draw3DRect(playerBullet.getBulletX(), playerBullet.getBulletY(), 2, 1, false);
 			}
 			if(playerBullet.getIsLive() == false){
 				player.getPlayerBullets().remove(playerBullet);
@@ -62,7 +66,15 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 			Enemy enemy = enemies.get(i);
 			if(enemy.isLive()){
 				this.drawTank(g, enemy.getX(), enemy.getY(), enemy.getDirection(), "Enemy");
-				
+				for(int enemyBulletIndex  = 0; enemyBulletIndex<enemy.getEnemyBullets().size();enemyBulletIndex++){
+					Bullet enemyBullet = enemy.getEnemyBullets().get(enemyBulletIndex);
+					if(enemyBullet.getIsLive()){
+						g.setColor(Color.RED);
+						g.draw3DRect(enemyBullet.getBulletX(), enemyBullet.getBulletY(), 2, 1, false);
+					}else{
+						enemy.getEnemyBullets().remove(enemyBullet);
+					}
+				}
 			}
 		}
 	}
@@ -137,7 +149,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		
 	}
 
-	//this will control the move of player tank
+	//this will control the move of player tank and it need key listener
 	@Override
 	public void keyPressed(KeyEvent k) {
 		// TODO Auto-generated method stub

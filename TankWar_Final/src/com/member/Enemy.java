@@ -5,12 +5,18 @@ import java.util.Random;
 
 public class Enemy extends Tank implements Runnable{
 	Vector<Enemy> enemies = new Vector<Enemy>();
+	private Vector<Bullet> enemyBullets = new Vector<Bullet>();
 	int select;
 	String[] directionSet = {"North","West","South","East"};
 	Random random = new Random();
+	//constructor
 	public Enemy(int x, int y) {
 		super(x, y);
 		// TODO Auto-generated constructor stub
+	}
+	//get the enemyBullets vector
+	public Vector<Bullet> getEnemyBullets() {
+		return enemyBullets;
 	}
 	@Override
 	public void run() {
