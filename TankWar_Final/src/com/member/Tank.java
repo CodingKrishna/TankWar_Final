@@ -1,7 +1,7 @@
 package com.member;
 
 
-class Tank {
+public class Tank {
 	int x;
 	int y;
 	int speed = 2;

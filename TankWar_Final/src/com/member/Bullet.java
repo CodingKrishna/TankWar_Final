@@ -13,6 +13,22 @@ public class Bullet implements Runnable{
 		this.bulletDirection = direction;
 	}
 
+	public int getBulletX() {
+		return bulletX;
+	}
+
+	public int getBulletY() {
+		return bulletY;
+	}
+
+	public boolean getIsLive() {
+		return isLive;
+	}
+
+	public void setIsLive(boolean isLive) {
+		this.isLive = isLive;
+	}
+
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -45,7 +61,9 @@ public class Bullet implements Runnable{
 			}
 			//System.out.println("x"+ x + "y" +y);
 			//the bullet stop running
-			if(bulletX<0||bulletX>400||bulletY<0||bulletY>600){
+			if(bulletX<0||bulletX>600||bulletY<0||bulletY>400){
+//				System.out.println(bulletX);
+//				System.out.println(bulletY);
 				this.isLive = false;
 				break;
 			}	

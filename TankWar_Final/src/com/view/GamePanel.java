@@ -1,5 +1,7 @@
 package com.view;
 import com.member.*;
+import com.member.Player;
+import com.member.Bullet;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -40,6 +42,19 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		if(player.isLive()==true){
 			this.drawTank(g, player.getX(), player.getY(), player.getDirection(), "Player");
 			
+		}
+		
+		//draw the player bullets
+		for(int i = 0; i<player.getPlayerBullets().size();i++){
+			Bullet playerBullet = player.getPlayerBullets().get(i);
+//			//draw the bullet
+			if(playerBullet!=null && playerBullet.getIsLive()==true){
+				g.setColor(Color.WHITE);
+				g.draw3DRect(playerBullet.getBulletX(), playerBullet.getBulletY(), 1, 1, false);
+			}
+			if(playerBullet.getIsLive() == false){
+				player.getPlayerBullets().remove(playerBullet);
+			}
 		}
 		
 		//draw the enemy tank
@@ -142,6 +157,10 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		if(k.getKeyCode()==KeyEvent.VK_D){
 			player.setDirection("East");
 			player.moveRight();
+		}
+		//if press key "J" then player will shoot
+		if(k.getKeyCode() == KeyEvent.VK_J){
+			this.player.shoot();
 		}
 		//after pressed the key, Panel will refresh to show the new move of player
 		this.repaint();
