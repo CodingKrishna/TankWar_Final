@@ -61,8 +61,8 @@ public class View implements ActionListener{
 		startPanel = new StartPanel();
 		//create thread to call the run function
 		//in start class
-		Thread t = new Thread(startPanel);
-		t.start();
+		Thread startPanelThread = new Thread(startPanel);
+		startPanelThread.start();
 		//set up the Java frame
 		jf.setJMenuBar(jmb);
 		jf.add(startPanel);
@@ -83,6 +83,8 @@ public class View implements ActionListener{
 		//if click the new game
 		if(a.getActionCommand().equals("New")){
 			gamePanel = new GamePanel("New");
+			Thread gamePanelThread = new Thread(gamePanel);
+			gamePanelThread.start();
 			jf.remove(startPanel);
 			jf.add(gamePanel);
 			jf.addKeyListener(gamePanel);

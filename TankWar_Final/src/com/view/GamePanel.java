@@ -24,6 +24,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 			for(int i = 0; i<enemiesAmount; i++){
 				Enemy enemy = new Enemy((i+1)*100,0);
 				enemy.setDirection("South");
+				Thread enemyThread = new Thread(enemy);
+				enemyThread.start();
 				enemies.add(enemy);
 			}
 		}
@@ -169,6 +171,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			//call repaint every 100 ms to refresh the gamepanel
+			System.out.println("yes");
 			this.repaint();
 		}
 	}
