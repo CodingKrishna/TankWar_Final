@@ -47,6 +47,10 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		if(player.getIsLive()==true){
 			this.drawTank(g, player.getX(), player.getY(), player.getDirection(), "Player");
 			
+		}else{
+//			Thread gamePanelThread = new Thread(this);
+//			gamePanelThread.interrupt();
+			Thread.currentThread().interrupt();
 		}
 		
 		//draw the player bullets
