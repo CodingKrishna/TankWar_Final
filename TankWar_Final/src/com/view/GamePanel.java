@@ -1,6 +1,7 @@
 package com.view;
 import com.member.*;
 import com.member.Player;
+import com.member.Enemy;
 import com.member.Bullet;
 
 import java.awt.Color;
@@ -51,7 +52,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		//draw the player bullets
 		for(int playerBulletIndex = 0; playerBulletIndex<player.getPlayerBullets().size();playerBulletIndex++){
 			Bullet playerBullet = player.getPlayerBullets().get(playerBulletIndex);
-//			//draw the bullet
+			//draw the bullet
 			if(playerBullet!=null && playerBullet.getIsLive()==true){
 				g.setColor(Color.WHITE);
 				g.draw3DRect(playerBullet.getBulletX(), playerBullet.getBulletY(), 2, 1, false);
@@ -62,8 +63,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		}
 		
 		//draw the enemy tank
-		for(int i =0; i<enemies.size();i++){
-			Enemy enemy = enemies.get(i);
+		for(int enemyindex =0; enemyindex<enemies.size();enemyindex++){
+			Enemy enemy = enemies.get(enemyindex);
 			if(enemy.getIsLive()){
 				this.drawTank(g, enemy.getX(), enemy.getY(), enemy.getDirection(), "Enemy");
 				for(int enemyBulletIndex  = 0; enemyBulletIndex<enemy.getEnemyBullets().size();enemyBulletIndex++){
@@ -75,6 +76,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 						enemy.getEnemyBullets().remove(enemyBullet);
 					}
 				}
+			}else{
+				enemies.remove(enemyindex);
 			}
 		}
 	}
@@ -145,9 +148,63 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 			g.drawLine(x+10, y+15, x+10+15, y+15);
 			break;
 		}
-		
-		
 	}
+	
+	//determine if the tank get shot by bullet type means who should got shot
+		public void hitTank(Bullet bullet, Tank tank, String type) {
+			switch(tank.getDirection()){
+			//when tank get shot in north or south direction
+			case "North":
+			case "South":
+				if(bullet.getBulletX()<=tank.getX()+20 && bullet.getBulletX()>=tank.getX() && 
+				bullet.getBulletY()<tank.getY()+30 && bullet.getBulletY()>=tank.getY()){
+					bullet.setIsLive(false);
+					tank.setIsLive(false);
+				}
+				break;
+			//when tank get shot in west or east direction
+			case "West":
+			case "East":
+				if(bullet.getBulletX()<=tank.getX()+30 && bullet.getBulletX()>=tank.getX() &&
+				bullet.getBulletY()<=tank.getY()+20 && bullet.getBulletY()>=tank.getY()){
+					bullet.setIsLive(false);
+					tank.setIsLive(false);
+				}
+				break;
+				
+			}
+			
+		}
+	
+	//determine if player's bullet hit enemy tank
+	public void hitEnemy(){
+		for(int playerBulletIndex = 0; playerBulletIndex< player.getPlayerBullets().size();playerBulletIndex++){
+			Bullet playerBullet = player.getPlayerBullets().get(playerBulletIndex);
+			if(playerBullet.getIsLive()){
+				for(int enemyIndex=0;enemyIndex<enemies.size();enemyIndex++){
+					Enemy enemy = enemies.get(enemyIndex);
+					if(enemy.getIsLive()){
+						this.hitTank(playerBullet, enemy, "Enemy");
+					}
+				}
+			}
+		}
+	}
+	
+	//determine if enemy's bullet hit player tank
+	public void hitPlayer(){
+		for(int enemyIndex = 0; enemyIndex<this.enemies.size();enemyIndex++){
+			Enemy enemy = enemies.get(enemyIndex);
+			for(int enemyBulletIndex=0; enemyBulletIndex<enemy.getEnemyBullets().size();enemyBulletIndex++){
+				Bullet enemyBullet = enemy.getEnemyBullets().get(enemyBulletIndex);
+				if(player.getIsLive()){
+					this.hitTank(enemyBullet, player, "Player");					
+				}
+			}
+		}
+	}
+
+	
 
 	//this will control the move of player tank and it need key listener
 	@Override
@@ -202,6 +259,10 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			//determine if enemy tank got hit
+			this.hitEnemy();
+			//determine if player tank got hit
+			this.hitPlayer();
 			//call repaint every 100 ms to refresh the game panel
 			this.repaint();
 		}

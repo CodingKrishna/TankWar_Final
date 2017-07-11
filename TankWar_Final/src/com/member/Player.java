@@ -3,6 +3,7 @@ package com.member;
 import java.util.Vector;
 
 public class Player extends Tank{
+	//to save how many alive bullets shoot by player
 	private Vector<Bullet> playerBullets = new Vector<Bullet>();
 	Bullet playerBullet = null;
 	public Player(int x, int y){
@@ -50,6 +51,7 @@ public class Player extends Tank{
 		}
 		Thread playBulletThread = new Thread(playerBullet);
 		playBulletThread.start();
+//		System.out.print(playerBullets.size());
 	}
 
 	public Vector<Bullet> getPlayerBullets() {
