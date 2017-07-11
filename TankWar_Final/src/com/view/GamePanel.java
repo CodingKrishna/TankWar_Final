@@ -50,7 +50,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		}else{
 //			Thread gamePanelThread = new Thread(this);
 //			gamePanelThread.interrupt();
-			Thread.currentThread().interrupt();
+			Thread.currentThread().getThreadGroup().list();
 		}
 		
 		//draw the player bullets

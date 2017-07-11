@@ -20,6 +20,118 @@ public class Enemy extends Tank implements Runnable{
 	public Vector<Bullet> getEnemyBullets() {
 		return enemyBullets;
 	}
+	//determine if tanks touch other tanks
+	public boolean isTouchOthers(){
+		boolean touch = false;
+		switch(this.getDirection()){
+		//If this tank is in north
+		case "North":
+			for(int enemyIndex=0; enemyIndex<enemies.size();enemyIndex++){
+				Enemy enemy = enemies.get(enemyIndex);
+				if(enemy!=this){
+					//other tanks in north or south
+					if(enemy.getDirection() == "North" || enemy.getDirection() == "South" ){
+						if(this.getX()>= enemy.getX() && this.getX()<=enemy.getX()+20 && this.getY()>=enemy.getY() && this.getY()<=enemy.getY()+30){
+							return true;
+						}
+						if(this.getX()>=enemy.getX() && this.getX()<=enemy.getX()+20 && this.getY()+20>=enemy.getY() && this.getY()+20<=enemy.getY()+30){
+							return true;
+						}
+					}
+					//other tanks in west or east
+					if(enemy.getDirection() == "West" || enemy.getDirection() =="East"){
+						if(this.getX()>=enemy.getX() && this.getX()<=enemy.getX()+30 && this.getY()>=enemy.getY() && this.getY()<=enemy.getY()+20){
+							return true;
+						}
+						if(this.getX()>=enemy.getX() && this.getX()<=enemy.getX()+30 && this.getY()+20>=enemy.getY() && this.getY()+20<=enemy.getY()+20){
+							return true;
+						}
+					}
+				}
+			}
+			break;
+		//If this tank is in south
+		case "South":
+			for(int enemyIndex=0; enemyIndex<enemies.size();enemyIndex++){
+				Enemy enemy = enemies.get(enemyIndex);
+				if(enemy!=this){
+					//others tank in north or south
+					if(enemy.getDirection() == "North" || enemy.getDirection() == "South" ){
+						if(this.getX() >= enemy.getX() && this.getX() <= enemy.getX()+20 && this.getY()+30 >=enemy.getY() && this.getY()+30 <=enemy.getY()+30){
+							return true;
+						}
+						if(this.getX()+20 >= enemy.getX() && this.getX()+20 <=enemy.getX()+20 && this.y+30 >=enemy.getY() && this.y+30 <=enemy.getY()+30){
+							return true;
+						}
+					}
+					if(enemy.getDirection() == "West" || enemy.getDirection() =="East"){
+						if(this.getX() >= enemy.getX() && this.getX() <= enemy.getX()+30 && this.getY()+30 >=enemy.getY() && this.getY()+30 <=enemy.getY()+20){
+							return true;
+						}
+						if(this.getX()+20>=enemy.getX() && this.getX()+20 <=enemy.getX()+30 && this.getY()+30 >=enemy.getY() && this.getY()+30 <=enemy.getY()+20){
+							return true;
+						}
+					}
+				}
+			}
+			break;
+		//If this tank is in west
+		case "West":
+			for(int enemyIndex=0; enemyIndex<enemies.size();enemyIndex++){
+				Enemy enemy = enemies.get(enemyIndex);
+				if(enemy!=this){
+					//other tanks in north or south
+					if(enemy.getDirection() == "North" || enemy.getDirection() == "South" ){
+						if(this.getX() >= enemy.getX() && this.getX() <= enemy.getX()+20 && this.getY()>=enemy.getY() && this.getY()<=enemy.getY()+30){
+							return true;
+						}
+						if(this.getX()>=enemy.getX() && this.getX() <=enemy.getX()+20 && this.getY()+20>=enemy.getY() && this.getY()+20<=enemy.getY()+30){
+							return true;
+						}
+					}
+					//other tanks in west or east
+					if(enemy.getDirection() == "West" || enemy.getDirection() =="East"){
+						if(this.getX() >= enemy.getX() && this.getX() <= enemy.getX()+30 && this.getY()>=enemy.getY() && this.getY()<=enemy.getY()+20){
+							return true;
+						}
+						if(this.getX()>=enemy.getX() && this.getX() <=enemy.getX()+30 && this.getY()+20>=enemy.getY() && this.getY()+20<=enemy.getY()+20){
+							return true;
+						}
+					}
+				}
+			}
+			break;
+		//If this tank is in east
+		case "East":
+			for(int enemyIndex=0; enemyIndex<enemies.size();enemyIndex++){
+				Enemy enemy = enemies.get(enemyIndex);
+				if(enemy!=this){
+					//other tanks in north or south
+					if(enemy.getDirection() == "North" || enemy.getDirection() == "South" ){
+						if(this.getX()+30 >= enemy.getX() && this.getX()+30 <= enemy.getX()+20 && this.getY()>=enemy.getY() && this.getY()<=enemy.getY()+30){
+							return true;
+						}
+						if(this.getX()+30 >= enemy.getX() && this.getX()+30 <=enemy.getX()+20 && this.getY()+20>=enemy.getY() && this.getY()+20<=enemy.getY()+30){
+							return true;
+						}
+					}
+					//other tanks in west or east
+					if(enemy.getDirection() == "West" || enemy.getDirection() =="East"){
+						if(this.getX()+30 >= enemy.getX() && this.getX()+30 <= enemy.getX()+30 && this.getY() >=enemy.getY() && this.getY() <=enemy.getY()+20){
+							return true;
+						}
+						if(this.getX()+30>=enemy.getX() && this.getX()+30 <=enemy.getX()+30 && this.getY()+20 >=enemy.getY() && this.getY()+20 <=enemy.getY()+20){
+							return true;
+						}
+					}
+				}
+			}
+			break;
+		default:
+			return false;
+		}
+		return touch;
+	}
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
