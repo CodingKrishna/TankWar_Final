@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		g.setColor(Color.black);
 		g.fillRect(0, 0, 600, 400);
 		//draw player tank
-		if(player.isLive()==true){
+		if(player.getIsLive()==true){
 			this.drawTank(g, player.getX(), player.getY(), player.getDirection(), "Player");
 			
 		}
@@ -64,7 +64,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		//draw the enemy tank
 		for(int i =0; i<enemies.size();i++){
 			Enemy enemy = enemies.get(i);
-			if(enemy.isLive()){
+			if(enemy.getIsLive()){
 				this.drawTank(g, enemy.getX(), enemy.getY(), enemy.getDirection(), "Enemy");
 				for(int enemyBulletIndex  = 0; enemyBulletIndex<enemy.getEnemyBullets().size();enemyBulletIndex++){
 					Bullet enemyBullet = enemy.getEnemyBullets().get(enemyBulletIndex);

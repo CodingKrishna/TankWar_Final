@@ -45,11 +45,11 @@ public class Tank {
 		this.color = color;
 	}
 
-	public boolean isLive() {
+	public boolean getIsLive() {
 		return isLive;
 	}
 
-	public void setLive(boolean isLive) {
+	public void setIsLive(boolean isLive) {
 		this.isLive = isLive;
 	}
 	

@@ -1,9 +1,11 @@
 package com.member;
 
 import java.util.Vector;
+
 import java.util.Random;
 
 public class Enemy extends Tank implements Runnable{
+	int bulletTimeInterval;
 	Vector<Enemy> enemies = new Vector<Enemy>();
 	private Vector<Bullet> enemyBullets = new Vector<Bullet>();
 	int select;
@@ -75,6 +77,41 @@ public class Enemy extends Tank implements Runnable{
 				}
 				break;
 			}
+			this.bulletTimeInterval++;
+			if(bulletTimeInterval%2==0){
+				//determine if the enemy tank need to reload
+				if(getIsLive()){
+					if(enemyBullets.size()<2){
+						Bullet enemyBullet = null;
+						//reload new bullet
+						switch(this.getDirection()){
+						case "North":
+							enemyBullet = new Bullet(this.getX()+10,this.getY(),"North");
+							enemyBullets.add(enemyBullet);
+							break;
+						case "West":
+							enemyBullet = new Bullet(this.getX()-5, this.getY()+15,"West");
+							enemyBullets.add(enemyBullet);
+							break;
+						case "South":
+							enemyBullet = new Bullet(this.getX()+10, this.getY()+25,"South");
+							enemyBullets.add(enemyBullet);
+							break;
+						case "East":
+							enemyBullet = new Bullet(this.getX()+25, this.getY()+15,"East");
+							enemyBullets.add(enemyBullet);
+							break;
+						}
+						
+						//start the bullet thread
+						Thread enemyBulletThread = new Thread(enemyBullet);
+						enemyBulletThread.start();
+					}
+				}
+				
+			}
+			
+			//Randomly choose the direction of enemy tank
 			select = random.nextInt(directionSet.length);
 			this.direction = directionSet[select];
 		}
