@@ -1,11 +1,15 @@
 package com.view;
 import com.member.*;
 import com.member.Player;
+import com.member.Explosion;
 import com.member.Enemy;
 import com.member.Bullet;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Panel;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Vector;
@@ -15,17 +19,25 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel implements KeyListener, Runnable{
 	Player player = null;
 	Vector<Enemy> enemies= new Vector<Enemy>();
+	//define the exploration
+	Vector<Explosion> explosions = new Vector<Explosion>();
 	//set enemies initial amount
-	int enemiesAmount = 10;
-	
+	int enemiesAmount = 5;
+	//define the explosion pictures
+	Image image1 = null;
+	Image image2 = null;
+	Image image3 = null;
 	
 	//set the flag to determine the functionalities
 	public GamePanel(String flag){
-		player = new Player(300,200);
+		image1 = Toolkit.getDefaultToolkit().getImage(Panel.class.getResource("/pictures/explore1.jpg"));
+		image2 = Toolkit.getDefaultToolkit().getImage(Panel.class.getResource("/pictures/explore2.jpg"));
+		image3 = Toolkit.getDefaultToolkit().getImage(Panel.class.getResource("/pictures/explore3.jpg"));
+		player = new Player(400,300);
 		//if flag is new then create enemies and enemy bullets
 		if(flag.equals("New")){
 			for(int i = 0; i<enemiesAmount; i++){
-				Enemy enemy = new Enemy((i+1)*50,0);
+				Enemy enemy = new Enemy((i+1)*100,0);
 				enemy.setDirection("South");
 				//give the enemy tank vector from game panel to enemy class
 				enemy.setEnemies(enemies);
@@ -84,6 +96,34 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 				}
 			}else{
 				enemies.remove(enemyindex);
+			}
+		}
+		//draw the exploration
+		for(int explosionIndex = 0; explosionIndex<explosions.size();explosionIndex++){
+			Explosion explosion = explosions.get(explosionIndex);
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			if(explosion.getTime()>4){
+				g.drawImage(image3, explosion.getX(), explosion.getY(), 30,30,this);
+
+			}else if(explosion.getTime()>2){
+				g.drawImage(image2, explosion.getX(), explosion.getY(), 30,30,this);
+
+			}else{
+				g.drawImage(image1, explosion.getX(), explosion.getY(), 30,30,this);
+
+			}
+			//Exploration time is getting decreased
+			explosion.timeDecrease();
+			
+			//when the exploration time is 0, remove the exploration
+			if(explosion.getTime()==0){
+				explosions.remove(explosion);
 			}
 		}
 	}
@@ -166,6 +206,10 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 				bullet.getBulletY()<tank.getY()+30 && bullet.getBulletY()>=tank.getY()){
 					bullet.setIsLive(false);
 					tank.setIsLive(false);
+					//create the exploration
+					Explosion explosion = new Explosion(tank.getX(),tank.getY());
+					//add it to the exploration vector
+					explosions.add(explosion);
 				}
 				break;
 			//when tank get shot in west or east direction
@@ -175,6 +219,10 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 				bullet.getBulletY()<=tank.getY()+20 && bullet.getBulletY()>=tank.getY()){
 					bullet.setIsLive(false);
 					tank.setIsLive(false);
+					//create the exploration
+					Explosion explosion = new Explosion(tank.getX(),tank.getY());
+					//add it to the exploration vector
+					explosions.add(explosion);
 				}
 				break;
 				

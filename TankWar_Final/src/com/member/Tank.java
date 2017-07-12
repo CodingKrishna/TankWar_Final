@@ -4,7 +4,7 @@ package com.member;
 public class Tank {
 	int x;
 	int y;
-	int speed = 2;
+	int speed = 3;
 	String direction = "North";
 	String color;
 	private boolean isLive = true;
