@@ -96,7 +96,7 @@ public class View implements ActionListener{
 		}else if(a.getActionCommand().equals("Save As")){
 			
 		}else if(a.getActionCommand().equals("Exit")){
-			
+			System.exit(0);
 		}
 	}
 
