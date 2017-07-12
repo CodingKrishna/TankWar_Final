@@ -15,8 +15,8 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel implements KeyListener, Runnable{
 	Player player = null;
 	Vector<Enemy> enemies= new Vector<Enemy>();
-	
-	int enemiesAmount = 5;
+	//set enemies initial amount
+	int enemiesAmount = 10;
 	
 	
 	//set the flag to determine the functionalities
@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		//if flag is new then create enemies and enemy bullets
 		if(flag.equals("New")){
 			for(int i = 0; i<enemiesAmount; i++){
-				Enemy enemy = new Enemy((i+1)*100,0);
+				Enemy enemy = new Enemy((i+1)*50,0);
 				enemy.setDirection("South");
 				Thread enemyThread = new Thread(enemy);
 				enemyThread.start();
@@ -50,7 +50,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		}else{
 //			Thread gamePanelThread = new Thread(this);
 //			gamePanelThread.interrupt();
-			Thread.currentThread().getThreadGroup().list();
+//			Thread.currentThread().getThreadGroup().list();
 		}
 		
 		//draw the player bullets

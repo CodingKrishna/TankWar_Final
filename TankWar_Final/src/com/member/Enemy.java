@@ -127,8 +127,6 @@ public class Enemy extends Tank implements Runnable{
 				}
 			}
 			break;
-		default:
-			return false;
 		}
 		return touch;
 	}
@@ -142,10 +140,13 @@ public class Enemy extends Tank implements Runnable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			switch(this.direction){
+			System.out.println(this.isTouchOthers());
+			switch(this.getDirection()){
 			case "North":
 				for(int i = 0; i<30;i++){
-					y-=speed;
+					if(y>0 && !this.isTouchOthers()){
+						y-=speed;
+					}
 					//set the time interval between each move
 					try {
 						Thread.sleep(50);
@@ -157,7 +158,9 @@ public class Enemy extends Tank implements Runnable{
 				break;
 			case "West":
 				for(int i = 0; i<30;i++){
-					x-=speed;
+					if(x>5 && !this.isTouchOthers()){
+						x-=speed;
+					}
 					try {
 						Thread.sleep(50);
 					} catch (InterruptedException e) {
@@ -168,7 +171,9 @@ public class Enemy extends Tank implements Runnable{
 				break;
 			case "South":
 				for(int i = 0; i<30;i++){
-					y+=speed;
+					if(y<370 && !this.isTouchOthers()){
+						y+=speed;
+					}
 					try {
 						Thread.sleep(50);
 					} catch (InterruptedException e) {
@@ -179,7 +184,9 @@ public class Enemy extends Tank implements Runnable{
 				break;
 			case "East":
 				for(int i = 0; i<30;i++){
-					x+=speed;
+					if(x<560 && !this.isTouchOthers()){
+						x+=speed;
+					}
 					try {
 						Thread.sleep(50);
 					} catch (InterruptedException e) {
@@ -192,7 +199,7 @@ public class Enemy extends Tank implements Runnable{
 			this.bulletTimeInterval++;
 			if(bulletTimeInterval%2==0){
 				//determine if the enemy tank need to reload
-				if(getIsLive()){
+				if(this.getIsLive()){
 					if(enemyBullets.size()<2){
 						Bullet enemyBullet = null;
 						//reload new bullet
@@ -226,6 +233,10 @@ public class Enemy extends Tank implements Runnable{
 			//Randomly choose the direction of enemy tank
 			select = random.nextInt(directionSet.length);
 			this.direction = directionSet[select];
+			//if the enemy tanks are destroyed then get out the thread
+			if(this.getIsLive() == false){
+				break;
+			}
 		}
 	}
 	
