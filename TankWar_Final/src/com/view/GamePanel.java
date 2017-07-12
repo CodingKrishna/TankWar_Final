@@ -1,11 +1,13 @@
 package com.view;
 import com.member.*;
 import com.member.Player;
+import com.member.Recorder;
 import com.member.Explosion;
 import com.member.Enemy;
 import com.member.Bullet;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Panel;
@@ -55,6 +57,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 	//function of paint need JPanel.
 	public void paint(Graphics g){
 		super.paint(g);
+		//draw the score board
+		this.showScore(g);
 		g.setColor(Color.black);
 		g.fillRect(0, 0, 600, 400);
 		//draw player tank
@@ -206,6 +210,12 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 				bullet.getBulletY()<tank.getY()+30 && bullet.getBulletY()>=tank.getY()){
 					bullet.setIsLive(false);
 					tank.setIsLive(false);
+					if(type.equals("Enemy")){
+						Recorder.reduceTotalEnemies();
+						Recorder.addPlayerScore();
+					}else if(type.equals("Player")){
+						Recorder.reducePlayerLives();
+					}
 					//create the exploration
 					Explosion explosion = new Explosion(tank.getX(),tank.getY());
 					//add it to the exploration vector
@@ -219,6 +229,12 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 				bullet.getBulletY()<=tank.getY()+20 && bullet.getBulletY()>=tank.getY()){
 					bullet.setIsLive(false);
 					tank.setIsLive(false);
+					if(type.equals("Enemy")){
+						Recorder.reduceTotalEnemies();
+						Recorder.addPlayerScore();
+					}else if(type.equals("Player")){
+						Recorder.reducePlayerLives();
+					}
 					//create the exploration
 					Explosion explosion = new Explosion(tank.getX(),tank.getY());
 					//add it to the exploration vector
@@ -256,6 +272,27 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 				}
 			}
 		}
+	}
+	
+	//draw the score board
+	public void showScore(Graphics g){
+		//draw a enemy tank as icon to indicate the number of the rest enemy
+		this.drawTank(g, 20, 420, "North", "Enemy");
+		g.setColor(Color.black);
+		g.drawString(Recorder.getTotalEnemies()+"", 50, 440);
+		
+		//draw a player tank as icon to indicate the number of the rest blood
+		this.drawTank(g, 20, 480, "North", "Player");
+		g.setColor(Color.black);
+		g.drawString(Recorder.getPlayerLives()+"", 50, 500);
+		
+		//draw the score of player
+		g.setColor(Color.black);
+		Font f = new Font("Serif",Font.BOLD, 20);
+		g.setFont(f);
+		g.drawString("Your Score", 100, 470);
+		g.setColor(Color.red);
+		g.drawString(Recorder.getPlayerScore()+" ", 200, 470);
 	}
 
 	

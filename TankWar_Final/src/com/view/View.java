@@ -9,6 +9,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import com.member.Recorder;
+
 public class View implements ActionListener{
 
 	JFrame jf;
@@ -92,7 +94,11 @@ public class View implements ActionListener{
 		}else if(a.getActionCommand().equals("Continue")){
 			
 		}else if(a.getActionCommand().equals("Save")){
-			
+			Recorder info = new Recorder();
+			info.setEnemies(gamePanel.enemies);
+			info.saveInfo();
+			Recorder.saveScore();
+			System.exit(0);
 		}else if(a.getActionCommand().equals("Save As")){
 			
 		}else if(a.getActionCommand().equals("Exit")){
