@@ -27,6 +27,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 			for(int i = 0; i<enemiesAmount; i++){
 				Enemy enemy = new Enemy((i+1)*50,0);
 				enemy.setDirection("South");
+				//give the enemy tank vector from game panel to enemy class
+				enemy.setEnemies(enemies);
 				Thread enemyThread = new Thread(enemy);
 				enemyThread.start();
 				Bullet enemyBullet = new Bullet(enemy.getX()+10,enemy.getY()+30,"South");

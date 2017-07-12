@@ -20,30 +20,40 @@ public class Enemy extends Tank implements Runnable{
 	public Vector<Bullet> getEnemyBullets() {
 		return enemyBullets;
 	}
+	//receive the enemy vector from game panel
+	public void setEnemies(Vector<Enemy> enemies){
+		this.enemies = enemies;
+	}
 	//determine if tanks touch other tanks
 	public boolean isTouchOthers(){
 		boolean touch = false;
 		switch(this.getDirection()){
+		
 		//If this tank is in north
 		case "North":
+//			System.out.println(enemies.size());
 			for(int enemyIndex=0; enemyIndex<enemies.size();enemyIndex++){
 				Enemy enemy = enemies.get(enemyIndex);
 				if(enemy!=this){
 					//other tanks in north or south
 					if(enemy.getDirection() == "North" || enemy.getDirection() == "South" ){
 						if(this.getX()>= enemy.getX() && this.getX()<=enemy.getX()+20 && this.getY()>=enemy.getY() && this.getY()<=enemy.getY()+30){
+//							System.out.println("nn");
 							return true;
 						}
 						if(this.getX()>=enemy.getX() && this.getX()<=enemy.getX()+20 && this.getY()+20>=enemy.getY() && this.getY()+20<=enemy.getY()+30){
+//							System.out.println("ns");
 							return true;
 						}
 					}
 					//other tanks in west or east
 					if(enemy.getDirection() == "West" || enemy.getDirection() =="East"){
 						if(this.getX()>=enemy.getX() && this.getX()<=enemy.getX()+30 && this.getY()>=enemy.getY() && this.getY()<=enemy.getY()+20){
+//							System.out.println("nw");
 							return true;
 						}
 						if(this.getX()>=enemy.getX() && this.getX()<=enemy.getX()+30 && this.getY()+20>=enemy.getY() && this.getY()+20<=enemy.getY()+20){
+//							System.out.println("ne");
 							return true;
 						}
 					}
@@ -58,17 +68,21 @@ public class Enemy extends Tank implements Runnable{
 					//others tank in north or south
 					if(enemy.getDirection() == "North" || enemy.getDirection() == "South" ){
 						if(this.getX() >= enemy.getX() && this.getX() <= enemy.getX()+20 && this.getY()+30 >=enemy.getY() && this.getY()+30 <=enemy.getY()+30){
+//							System.out.println("sn");
 							return true;
 						}
 						if(this.getX()+20 >= enemy.getX() && this.getX()+20 <=enemy.getX()+20 && this.y+30 >=enemy.getY() && this.y+30 <=enemy.getY()+30){
+//							System.out.println("ss");
 							return true;
 						}
 					}
 					if(enemy.getDirection() == "West" || enemy.getDirection() =="East"){
 						if(this.getX() >= enemy.getX() && this.getX() <= enemy.getX()+30 && this.getY()+30 >=enemy.getY() && this.getY()+30 <=enemy.getY()+20){
+//							System.out.println("sw");
 							return true;
 						}
 						if(this.getX()+20>=enemy.getX() && this.getX()+20 <=enemy.getX()+30 && this.getY()+30 >=enemy.getY() && this.getY()+30 <=enemy.getY()+20){
+//							System.out.println("se");
 							return true;
 						}
 					}
@@ -140,7 +154,7 @@ public class Enemy extends Tank implements Runnable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println(this.isTouchOthers());
+//			System.out.println(this.isTouchOthers());
 			switch(this.getDirection()){
 			case "North":
 				for(int i = 0; i<30;i++){
