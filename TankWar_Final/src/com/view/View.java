@@ -92,13 +92,21 @@ public class View implements ActionListener{
 			jf.addKeyListener(gamePanel);
 			jf.setVisible(true);
 		}else if(a.getActionCommand().equals("Continue")){
-			
+			//create the battle panel
+			gamePanel = new GamePanel("continue");
+			//active thread of panel
+			Thread t = new Thread(gamePanel);
+			t.start();
+			jf.remove(startPanel);
+			jf.add(gamePanel);
+			jf.addKeyListener(gamePanel);
+			//refresh the JFrame
+			jf.setVisible(true);
 		}else if(a.getActionCommand().equals("Save")){
 			Recorder info = new Recorder();
 			info.setEnemies(gamePanel.enemies);
 			info.saveInfo();
 			Recorder.saveScore();
-			System.exit(0);
 		}else if(a.getActionCommand().equals("Save As")){
 			
 		}else if(a.getActionCommand().equals("Exit")){

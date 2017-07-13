@@ -2,6 +2,7 @@ package com.view;
 import com.member.*;
 import com.member.Player;
 import com.member.Recorder;
+import com.member.Node;
 import com.member.Explosion;
 import com.member.Enemy;
 import com.member.Bullet;
@@ -23,6 +24,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 	Vector<Enemy> enemies= new Vector<Enemy>();
 	//define the exploration
 	Vector<Explosion> explosions = new Vector<Explosion>();
+	//define the recording node to save
+	Vector<Node> nodes = new Vector<Node>();
 	//set enemies initial amount
 	int enemiesAmount = 5;
 	//define the explosion pictures
@@ -50,6 +53,25 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 				Thread enemyBulletThread = new Thread(enemyBullet);
 				enemyBulletThread.start();
 				enemies.add(enemy);
+			}
+		}else if(flag.equals("Continue")){
+			nodes = new Recorder().readInfo();
+			for(int i = 0; i<nodes.size(); i++){
+				Node node = nodes.get(i);
+				//create enemy tank and add them to vector
+				Enemy enemy=new Enemy(node.getX(), node.getY());
+				enemy.setDirection(node.getDirection());
+				//give the my panel enemy tank vector to enemy tank
+				enemy.setEnemies(enemies);
+				Thread t = new Thread(enemy);
+				t.start();
+				Bullet bullet = new Bullet(enemy.getX()+10, enemy.getY()+30, "South");
+				enemy.getEnemyBullets().add(bullet);
+				Thread bulletThread = new Thread(bullet);
+				bulletThread.start();
+				enemies.add(enemy);
+//				System.out.println(this.getSize());
+				
 			}
 		}
 	}
