@@ -40,15 +40,16 @@ public class Recorder {
 				bw = new BufferedWriter(fw);
 				
 				bw.write(playerScore+"\r\n");
-//				System.out.println("ok");
+				System.out.println("ok");
 				//save the survived enemy tank information
 				for(int i = 0; i<enemies.size(); i++){
-//					System.out.println("111");
+					System.out.println("111");
 					//get the enemy tank
 					Enemy enemy = enemies.get(i);
 					//if the enemy is alive then save
 					if(enemy.getIsLive()){
-						String info = enemy.x+" "+enemy.y+" "+enemy.direction; 
+						System.out.println("2222");
+						String info = enemy.getX()+" "+enemy.getY()+" "+enemy.getDirection(); 
 						bw.write(info+"\r\n");
 					}
 				}

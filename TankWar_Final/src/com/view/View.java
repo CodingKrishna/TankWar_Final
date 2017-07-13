@@ -106,7 +106,7 @@ public class View implements ActionListener{
 			Recorder info = new Recorder();
 			info.setEnemies(gamePanel.enemies);
 			info.saveInfo();
-			Recorder.saveScore();
+//			Recorder.saveScore();
 		}else if(a.getActionCommand().equals("Save As")){
 			
 		}else if(a.getActionCommand().equals("Exit")){
