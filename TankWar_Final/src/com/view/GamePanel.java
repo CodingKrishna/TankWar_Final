@@ -27,7 +27,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 	//define the recording node to save
 	Vector<Node> nodes = new Vector<Node>();
 	//set enemies initial amount
-	int enemiesAmount = 5;
+	int enemiesAmount = 8;
 	//define the explosion pictures
 	Image image1 = null;
 	Image image2 = null;
@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		//if flag is new then create enemies and enemy bullets
 		if(flag.equals("New")){
 			for(int i = 0; i<enemiesAmount; i++){
-				Enemy enemy = new Enemy((i+1)*100,0);
+				Enemy enemy = new Enemy((i+1)*50,20);
 				enemy.setDirection("South");
 				//give the enemy tank vector from game panel to enemy class
 				enemy.setEnemies(enemies);

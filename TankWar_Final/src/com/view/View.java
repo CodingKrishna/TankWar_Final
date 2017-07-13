@@ -93,7 +93,7 @@ public class View implements ActionListener{
 			jf.setVisible(true);
 		}else if(a.getActionCommand().equals("Continue")){
 			//create the battle panel
-			gamePanel = new GamePanel("continue");
+			gamePanel = new GamePanel("Continue");
 			//active thread of panel
 			Thread t = new Thread(gamePanel);
 			t.start();
