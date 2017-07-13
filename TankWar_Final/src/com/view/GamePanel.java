@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements KeyListener, Runnable{
 	Player player = null;
+
 	Vector<Enemy> enemies= new Vector<Enemy>();
 	//define the exploration
 	Vector<Explosion> explosions = new Vector<Explosion>();
@@ -361,7 +362,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		
 	}
 
-	//implements the thread
+
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -377,7 +378,10 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 			//determine if player tank got hit
 			this.hitPlayer();
 			//call repaint every 100 ms to refresh the game panel
-			this.repaint();
+//			if(pause == false){
+//				System.out.println("Pause is " + pause);
+				this.repaint();
+//			}
 		}
 	}
 }

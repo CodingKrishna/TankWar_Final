@@ -17,7 +17,7 @@ public class View implements ActionListener{
 	StartPanel sp = null;
 	JMenuBar jmb,jmb2;
 	JMenu jm1,jm2;
-	JMenuItem jmt1, jmt2, jmt3,jmt4,jmt5,jmt6;
+	JMenuItem jmt1, jmt2, jmt3,jmt4,jmt5;
 	GamePanel gamePanel = null;
 	StartPanel startPanel = null;
 	
@@ -33,15 +33,12 @@ public class View implements ActionListener{
 		jmt2 = new JMenuItem("Continue");
 		jmt2.addActionListener(this);
 		jmt2.setActionCommand("Continue");
-		jmt3 = new JMenuItem("Save");
+		jmt3 = new JMenuItem("Save and Exit");
 		jmt3.addActionListener(this);
-		jmt3.setActionCommand("Save");
-		jmt4 = new JMenuItem("Save As");
+		jmt3.setActionCommand("Save and Exit");
+		jmt4 = new JMenuItem("Exit");
 		jmt4.addActionListener(this);
-		jmt4.setActionCommand("Save As");
-		jmt5 = new JMenuItem("Exit");
-		jmt5.addActionListener(this);
-		jmt5.setActionCommand("Exit");
+		jmt4.setActionCommand("Exit");
 		jm1.add(jmt1);
 		jm1.addSeparator();
 		jm1.add(jmt2);
@@ -50,14 +47,12 @@ public class View implements ActionListener{
 		jm1.addSeparator();
 		jm1.add(jmt4);
 		jm1.addSeparator();
-		jm1.add(jmt5);
-		jm1.addSeparator();
 		jmb.add(jm1);
 		//create the second menu to menu bar
 		jm2 = new JMenu("Help(H)");
 		jm2.setMnemonic('h');
-		jmt6 = new JMenuItem("Doc");
-		jm2.add(jmt6);
+		jmt5 = new JMenuItem("Doc");
+		jm2.add(jmt5);
 		jmb.add(jm2);
 		//create start panel
 		startPanel = new StartPanel();
@@ -95,20 +90,18 @@ public class View implements ActionListener{
 			//create the battle panel
 			gamePanel = new GamePanel("Continue");
 			//active thread of panel
-			Thread t = new Thread(gamePanel);
-			t.start();
+			Thread gamePanelThread = new Thread(gamePanel);
+			gamePanelThread.start();
 			jf.remove(startPanel);
 			jf.add(gamePanel);
 			jf.addKeyListener(gamePanel);
 			//refresh the JFrame
 			jf.setVisible(true);
-		}else if(a.getActionCommand().equals("Save")){
+		}else if(a.getActionCommand().equals("Save and Exit")){
 			Recorder info = new Recorder();
 			info.setEnemies(gamePanel.enemies);
 			info.saveInfo();
-//			Recorder.saveScore();
-		}else if(a.getActionCommand().equals("Save As")){
-			
+			System.exit(0);
 		}else if(a.getActionCommand().equals("Exit")){
 			System.exit(0);
 		}
